@@ -12,16 +12,16 @@ void	free_mtx(char **mtx)
 	free(mtx);
 }
 
-void	free_cub(t_cub *cub)
+void	free_cub(t_cub cub)
 {
-	free_mtx(cub->texture);
-	free_mtx(cub->map);
+	free_mtx(cub.texture);
+	free_mtx(cub.map);
 }
 
-void	free_elements(t_elements *elements)
+void	free_elements(t_elements elements)
 {
-	free(elements->NO);
-	free(elements->SO);
-	free(elements->WE);
-	free(elements->EA);
+	free(elements.NO);
+	free(elements.SO);
+	free(elements.WE);
+	free(elements.EA);
 }

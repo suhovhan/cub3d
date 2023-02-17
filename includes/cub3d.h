@@ -33,8 +33,8 @@ t_data	data_collector(t_cub cub, t_elements elements);
 
 //	free_and_exit.c
 void	free_mtx(char **mtx);
-void	free_cub(t_cub *cub);
-void	free_elements(t_elements *elements);
+void	free_cub(t_cub cub);
+void	free_elements(t_elements elements);
 
 //	pars_manager.c
 char	**getmap(char *filename);
@@ -48,5 +48,8 @@ char	*join_mtx(char **mtx);
 int		find_char(char *str);
 int		find_map_symbol(char *str);
 int		tab_count(char	*str);
+
+//	draw+window.c
+void	draw_window(t_data *data);
 
 # endif

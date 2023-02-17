@@ -154,7 +154,8 @@ t_data	data_collector(t_cub cub, t_elements elements)
 {
 	t_data	data;
 
-	data.mlx = mlx_init();
+	data.mlx = NULL;
+	data.win = NULL;
 	data.map = NULL;
 	data.NO = NULL;
 	data.SO = NULL;

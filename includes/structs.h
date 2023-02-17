@@ -1,6 +1,9 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
+#define WIN_WIDTH 1000
+#define WIN_HEIGHT 800
+
 typedef struct	s_cub
 {
 	char	**map;
@@ -19,6 +22,7 @@ typedef struct	s_elements
 
 typedef struct	s_data {
 	void	*mlx;
+	void	*win;
 	char	**map;
 	char	*NO;
 	char	*SO;

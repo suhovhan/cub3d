@@ -38,25 +38,27 @@ int main(int ac, char **av)
     clean_tabs(map);
     if (struct_collector(&cub, map) == -1)
     {
-        free_cub(&cub);
+        free_cub(cub);
         return (-1);
     }
     free_mtx(map);
     if (checker(cub) == -1)
     {
-        free_cub(&cub);
+        free_cub(cub);
         return (-1);
     }
     if (elements_collector(&elements, cub.texture) == -1)
     {
-        free_cub(&cub);
-        free_elements(&elements);
+        free_cub(cub);
+        free_elements(elements);
         ft_putstr_fd("Invalid elements\n", 2);
         return (-1);
     }
     free_mtx(cub.texture);
     data = data_collector(cub, elements);
-    free_cub(&cub);
-    free_elements(&elements);
+    // p_data(data);
+    draw_window(&data);
+    free_cub(cub);
+    free_elements(elements);
     return (0);
 }

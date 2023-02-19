@@ -29,7 +29,7 @@ int		color_collector(t_elements *elements, char **sp, int flag);
 int		elements_collector(t_elements *elements, char **texture);
 void	getter_cub(t_data *data, t_cub cub);
 void	getter_elements(t_data *data, t_elements elements);
-t_data	data_collector(t_cub cub, t_elements elements);
+t_data	data_collector(t_cub cub);
 
 //	free_and_exit.c
 void	free_mtx(char **mtx);
@@ -50,6 +50,8 @@ int		find_map_symbol(char *str);
 int		tab_count(char	*str);
 
 //	draw+window.c
+void	initializer(t_data *data, t_elements elements);
 void	draw_window(t_data *data);
+int 	flat(t_data *data);
 
 # endif

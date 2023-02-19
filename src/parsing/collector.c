@@ -136,34 +136,29 @@ void	getter_cub(t_data *data, t_cub cub)
 	data->map = map;
 }
 
-void	getter_elements(t_data *data, t_elements elements)
-{
-	data->NO = ft_strdup(elements.NO);
-	data->SO = ft_strdup(elements.SO);
-	data->WE = ft_strdup(elements.WE);
-	data->EA = ft_strdup(elements.EA);
-	data->F[0] = elements.F[0];
-	data->F[1] = elements.F[1];
-	data->F[2] = elements.F[2];
-	data->C[0] = elements.C[0];
-	data->C[1] = elements.C[1];
-	data->C[2] = elements.C[2];
-}
-
-t_data	data_collector(t_cub cub, t_elements elements)
+t_data	data_collector(t_cub cub)
 {
 	t_data	data;
 
 	data.mlx = NULL;
 	data.win = NULL;
 	data.map = NULL;
-	data.NO = NULL;
-	data.SO = NULL;
-	data.WE = NULL;
-	data.EA = NULL;
-	data.x = 0;
-	data.y = 0;
+	data.x = -1;
+	data.y = -1;
 	getter_cub(&data, cub);
-	getter_elements(&data, elements);
 	return (data);
+	while (data.map[++(data.y)])
+	{
+		data.x = -1;
+		while (data.map[++data.x])
+			if (data.map[data.x][data.y] == 'E' || data.map[data.x][data.y] == 'N' \
+			|| data.map[data.x][data.y] == 'S' || data.map[data.x][data.y] == 'W')
+			{
+				data.pos_x = data.x;
+				data.pos_y = data.y;
+				break ;
+			}
+	}
+	data.x = -1;
+	data.y = -1;
 }

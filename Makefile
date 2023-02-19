@@ -10,7 +10,7 @@ OBJ_DIR = obj
 SRC_PARS = $(wildcard src/parsing/*.c)
 OBJ_PARS = $(patsubst src/parsing/%.c, $(OBJ_DIR)/%.o, $(SRC_PARS))
 
-SRC_CAST = $(wildcard src/raycasting/*.c, src/raycasting/*.cpp)
+SRC_CAST = $(wildcard src/raycasting/*.c)
 OBJ_CAST = $(patsubst src/raycasting/%.c, $(OBJ_DIR)/%.o, $(SRC_CAST))
 
 SRC_GNL = $(wildcard src/getnextline/*.c)

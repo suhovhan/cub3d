@@ -9,12 +9,6 @@ void    p_mtx(char **mtx)
 
 void    p_data(t_data data)
 {
-    printf("NO %s\n", data.NO);
-    printf("SO %s\n", data.SO);
-    printf("WE %s\n", data.WE);
-    printf("EA %s\n", data.EA);
-    printf("F R=%d G=%d B=%d\n", data.F[0], data.F[1], data.F[2]);
-    printf("C R=%d G=%d B=%d\n", data.C[0], data.C[1], data.C[2]);
     p_mtx(data.map);
 }
 
@@ -55,9 +49,9 @@ int main(int ac, char **av)
         return (-1);
     }
     free_mtx(cub.texture);
-    data = data_collector(cub, elements);
-    // p_data(data);
-    draw_window(&data);
+    data = data_collector(cub);
+    initializer(&data, elements);
+    mlx_loop(data.mlx);
     free_cub(cub);
     free_elements(elements);
     return (0);

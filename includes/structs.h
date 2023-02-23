@@ -41,6 +41,18 @@ typedef struct	s_data
 	int		y;
 }				t_data;
 
+typedef struct s_img
+{
+	void	*ptr;
+	char	*img;
+	int		bite;
+	int		width;
+	int		height;
+	int		size_line;
+	int		endian;
+	t_img	*img;
+}				t_img;
+
 typedef struct	s_raycaster
 {
 	double	pos_x;

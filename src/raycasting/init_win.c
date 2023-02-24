@@ -1,37 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_win.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: darakely <darakely@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 16:58:05 by darakely          #+#    #+#             */
-/*   Updated: 2023/01/18 19:25:48 by darakely         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "cub3d.h"
 
-#include "../cub3d.h"
-
-void	find_pos_player(t_data *data)
+void	find_pos_player(t_addres *address)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (data->parsing->norm_map[i])
+	while (address->data.map[i])
 	{
 		j = 0;
-		while (data->parsing->norm_map[i][j])
+		while (address->data.map[i][j])
 		{
-			if (data->parsing->norm_map[i][j] == 'N' || \
-				data->parsing->norm_map[i][j] == 'S' || \
-				data->parsing->norm_map[i][j] == 'E' || \
-				data->parsing->norm_map[i][j] == 'W')
+			if (address->data.map[i][j] == 'N' || \
+				address->data.map[i][j] == 'S' || \
+				address->data.map[i][j] == 'E' || \
+				address->data.map[i][j] == 'W')
 			{
-				init_player_pos(data, i, j);
-				data->rcasting->posx = i + 0.5;
-				data->rcasting->posy = j + 0.5;
-				data->parsing->norm_map[i][j] = '0';
+				init_player_pos(address, i, j);
+				address->rcasting->posx = i + 0.5;
+				address->rcasting->posy = j + 0.5;
+				address->data.map[i][j] = '0';
 				return ;
 			}
 			j++;
@@ -40,95 +28,95 @@ void	find_pos_player(t_data *data)
 	}
 }
 
-void	norm_init_win_2(t_data *data)
+void	norm_init_win_2(t_addres *address)
 {
-	data->rcasting->hit = 0;
-	while (data->rcasting->hit == 0)
+	address->rcasting->hit = 0;
+	while (address->rcasting->hit == 0)
 	{
-		if (data->rcasting->sidedistx < data->rcasting->sidedisty)
+		if (address->rcasting->sidedistx < address->rcasting->sidedisty)
 		{
-			data->rcasting->sidedistx += data->rcasting->deltadistx;
-			data->rcasting->mapx += data->rcasting->stepx;
-			data->rcasting->side = 0;
+			address->rcasting->sidedistx += address->rcasting->deltadistx;
+			address->rcasting->mapx += address->rcasting->stepx;
+			address->rcasting->side = 0;
 		}
 		else
 		{
-			data->rcasting->sidedisty += data->rcasting->deltadisty;
-			data->rcasting->mapy += data->rcasting->stepy;
-			data->rcasting->side = 1;
+			address->rcasting->sidedisty += address->rcasting->deltadisty;
+			address->rcasting->mapy += address->rcasting->stepy;
+			address->rcasting->side = 1;
 		}
-		if (data->parsing->norm_map[data->rcasting->mapx] \
-		[data->rcasting->mapy] != '0')
-			data->rcasting->hit = 1;
+		if (address->data.map[address->rcasting->mapx] \
+		[address->rcasting->mapy] != '0')
+			address->rcasting->hit = 1;
 	}
-	norm_init_win_3(data);
+	norm_init_win_3(address);
 }
 
-void	norm_init_win(t_data *data)
+void	norm_init_win(t_addres *address)
 {
-	if (data->rcasting->raydiry < 0)
+	if (address->rcasting->raydiry < 0)
 	{
-		data->rcasting->stepy = -1;
-		data->rcasting->sidedisty = (data->rcasting->posy - \
-		data->rcasting->mapy) * data->rcasting->deltadisty;
+		address->rcasting->stepy = -1;
+		address->rcasting->sidedisty = (address->rcasting->posy - \
+		address->rcasting->mapy) * address->rcasting->deltadisty;
 	}
 	else
 	{
-		data->rcasting->stepy = 1;
-		data->rcasting->sidedisty = (data->rcasting->mapy + 1.0 - \
-		data->rcasting->posy) * data->rcasting->deltadisty;
+		address->rcasting->stepy = 1;
+		address->rcasting->sidedisty = (address->rcasting->mapy + 1.0 - \
+		address->rcasting->posy) * address->rcasting->deltadisty;
 	}
-	norm_init_win_2(data);
+	norm_init_win_2(address);
 }
 
-void	continue_init_win(t_data *data)
+void	continue_init_win(t_addres *address)
 {
-	if (data->rcasting->raydirx == 0)
-		data->rcasting->deltadistx = 1e30;
+	if (address->rcasting->raydirx == 0)
+		address->rcasting->deltadistx = 1e30;
 	else
-		data->rcasting->deltadistx = ft_abs(1 / data->rcasting->raydirx);
-	if (data->rcasting->raydiry == 0)
-		data->rcasting->deltadisty = 1e30;
+		address->rcasting->deltadistx = ft_abs(1 / address->rcasting->raydirx);
+	if (address->rcasting->raydiry == 0)
+		address->rcasting->deltadisty = 1e30;
 	else
-		data->rcasting->deltadisty = ft_abs(1 / data->rcasting->raydiry);
-	if (data->rcasting->raydirx < 0)
+		address->rcasting->deltadisty = ft_abs(1 / address->rcasting->raydiry);
+	if (address->rcasting->raydirx < 0)
 	{
-		data->rcasting->stepx = -1;
-		data->rcasting->sidedistx = (data->rcasting->posx - \
-		data->rcasting->mapx) * data->rcasting->deltadistx;
+		address->rcasting->stepx = -1;
+		address->rcasting->sidedistx = (address->rcasting->posx - \
+		address->rcasting->mapx) * address->rcasting->deltadistx;
 	}
 	else
 	{
-		data->rcasting->stepx = 1;
-		data->rcasting->sidedistx = (data->rcasting->mapx + 1.0 - \
-		data->rcasting->posx) * data->rcasting->deltadistx;
+		address->rcasting->stepx = 1;
+		address->rcasting->sidedistx = (address->rcasting->mapx + 1.0 - \
+		address->rcasting->posx) * address->rcasting->deltadistx;
 	}
-	norm_init_win(data);
+	norm_init_win(address);
 }
 
-void	init_win(t_data *data)
+void	init_win(t_addres *address)
 {
 	int	i;
 
 	i = 0;
-	find_pos_player(data);
-	data->img[0].ptr = mlx_new_image(data->game->mlx, WIDTH, HEIGHT);
-	data->img[0].img = mlx_get_data_addr(data->img[0].ptr, &data->img[0].bpp, \
-	&data->img[0].size_line, &data->img[0].endian);
-	ft_get_data_addr(data);
+	find_pos_player(address);
+	address->img[0].ptr = mlx_new_image(address->game->mlx, WIDTH, HEIGHT);
+	address->img[0].img = mlx_get_data_addr(address->img[0].ptr, &address->img[0].bpp, \
+	&address->img[0].size_line, &address->img[0].endian);
+	ft_get_data_addr(address);
 	while (i < WIDTH)
 	{
-		data->game->index = i;
-		data->rcasting->camerax = 2 * i / (double)WIDTH - 1;
-		data->rcasting->raydirx = data->rcasting->dirx + \
-		data->rcasting->planex * data->rcasting->camerax;
-		data->rcasting->raydiry = data->rcasting->diry + \
-		data->rcasting->planey * data->rcasting->camerax;
-		data->rcasting->mapx = (int)data->rcasting->posx;
-		data->rcasting->mapy = (int)data->rcasting->posy;
-		continue_init_win(data);
+		address->game->index = i;
+		address->rcasting->camerax = 2 * i / (double)WIDTH - 1;
+		address->rcasting->raydirx = address->rcasting->dirx + \
+		address->rcasting->planex * address->rcasting->camerax;
+		address->rcasting->raydiry = address->rcasting->diry + \
+		address->rcasting->planey * address->rcasting->camerax;
+		address->rcasting->mapx = (int)address->rcasting->posx;
+		address->rcasting->mapy = (int)address->rcasting->posy;
+		continue_init_win(address);
 		i++;
 	}
-	mlx_put_image_to_window(data->game->mlx, data->game->win, \
-	data->img[0].ptr, 0, 0);
+	mlx_put_image_to_window(address->game->mlx, address->game->win, \
+	address->img[0].ptr, 0, 0);
 }

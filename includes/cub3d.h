@@ -1,6 +1,9 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+ #include <sys/types.h>
+ #include <signal.h>
+
 #include <string.h>
 #include <math.h>
 #include <mlx.h>
@@ -10,6 +13,8 @@
 
 //	main.c
 void    p_mtx(char **mtx);
+void	p_address(t_addres address);
+void	p_img(t_addres address, int n);
 void    p_data(t_data data);
 
 //	checker.c
@@ -43,6 +48,13 @@ void	clean_tabs(char **map);
 char	*open_tabs(char *str, int count);
 char	*reset_tabs(char *str);
 
+//	init_structs.c
+void	init_struct_game(t_addres *address);
+void	init_struct_index(t_addres *address);
+void	init_struct_raycasting(t_addres *address);
+void	init_structs(t_addres *address);
+
+
 //	utils.c
 char	*join_mtx(char **mtx);
 int		find_char(char *str);
@@ -50,8 +62,35 @@ int		find_map_symbol(char *str);
 int		tab_count(char	*str);
 
 //	draw+window.c
-void	initializer(t_data *data, t_elements elements);
-void	draw_window(t_data *data);
-int 	flat(t_data *data);
+void	initializer(t_addres *address);
+
+
+//........rcasting........
+
+void	init_win(t_addres *address);
+void	find_pos_player(t_addres *address);
+void	norm_init_win_2(t_addres *address);
+void	norm_init_win(t_addres *address);
+void	continue_init_win(t_addres *address);
+int	ft_texx(t_addres *address, int n);
+int	draw_walls(t_addres *address, char *dest, char *dest_2, int texx);
+void	norm_init_win_3(t_addres *address);
+float	ft_abs(float num);
+char	*get_correct_arg(char *ptr);
+void	init_plane(t_addres *address, double i, double j);
+void	init_dir(t_addres *address, double i, double j);
+void	init_player_pos(t_addres *address, int i, int j);
+void	ft_get_data_addr(t_addres *address);
+int	check_nwse(t_addres *address);
+int	key_manager(int key, t_addres *address);
+void	rotate_right(t_addres *address, double rotate);
+void	move_left(t_addres *address);
+void	move_right(t_addres *address);
+void	move_up(t_addres *address);
+void	move_down(t_addres *address);
+int	close_game(t_addres *address);
+void	free_all(t_addres *address);
+
+//........rcasting........
 
 # endif

@@ -140,8 +140,6 @@ t_data	data_collector(t_cub cub)
 {
 	t_data	data;
 
-	data.mlx = NULL;
-	data.win = NULL;
 	data.map = NULL;
 	data.x = -1;
 	data.y = -1;

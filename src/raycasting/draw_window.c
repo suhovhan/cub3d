@@ -8,40 +8,23 @@ int	create_trgb(int r, int g, int b)
 	return (*(int *)(unsigned char [4]){b, g, r, t});
 }
 
-int	key_hook(int keycode, void *param)
-{
-	(void)param;
-	if (keycode == 53)
-	{
-		ft_putstr_fd("ESC! exit\n", 2);
-		exit(0);
-	}
-	return (0);
-}
-
-void	initializer(t_data *data, t_elements elements)
+void	initializer(t_addres *address)
 {
 	int	size;
 
-	size = (int)SIZE;
-	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, "IT IS MY CUB3D!");
-	data->no_texture = mlx_xpm_file_to_image(data->mlx, elements.NO, &size, &size);
-	data->so_texture = mlx_xpm_file_to_image(data->mlx, elements.SO, &size, &size);
-	data->we_texture = mlx_xpm_file_to_image(data->mlx, elements.WE, &size, &size);
-	data->ea_texture = mlx_xpm_file_to_image(data->mlx, elements.EA, &size, &size);
-	data->f_color = create_trgb(elements.F[0], elements.F[1], elements.F[2]);
-	data->c_color = create_trgb(elements.C[0], elements.C[1], elements.C[2]);
-	while (++(data->y) <= WIN_HEIGHT)
-	{
-		data->x = -1;
-		while (++(data->x) <= WIN_WIDTH)
-		{
-			if (data->y < WIN_HEIGHT / 2)
-				mlx_pixel_put(data->mlx, data->win, data->x, data->y, data->c_color);
-			else
-				mlx_pixel_put(data->mlx, data->win, data->x, data->y, data->f_color);
-		}
-	}
-	mlx_key_hook(data->win, key_hook, NULL);
+	size = 100;
+	address->game->mlx = mlx_init();
+	address->game->win = mlx_new_window(address->game->mlx, WIDTH, HEIGHT, "IT IS MY CUB3D!");
+	address->game->no = mlx_xpm_file_to_image(address->game->mlx, address->elements.NO, &size, &size);
+	address->game->so = mlx_xpm_file_to_image(address->game->mlx, address->elements.SO, &size, &size);
+	address->game->we = mlx_xpm_file_to_image(address->game->mlx, address->elements.WE, &size, &size);
+	address->game->ea = mlx_xpm_file_to_image(address->game->mlx, address->elements.EA, &size, &size);
+	address->game->f_color = create_trgb(address->elements.F[0], address->elements.F[1], address->elements.F[2]);
+	address->game->c_color = create_trgb(address->elements.C[0], address->elements.C[1], address->elements.C[2]);
+	if (address->game->mlx == NULL || address->game->win == NULL)
+		close_game(address);
+	if (address->game->no == NULL || address->game->so == NULL)
+		close_game(address);
+	if (address->game->we == NULL || address->game->ea == NULL)
+		close_game(address);
 }

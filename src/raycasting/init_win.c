@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_win.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/24 20:52:36 by suhovhan          #+#    #+#             */
+/*   Updated: 2023/02/24 20:53:01 by suhovhan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	find_pos_player(t_addres *address)
@@ -101,8 +113,8 @@ void	init_win(t_addres *address)
 	i = 0;
 	find_pos_player(address);
 	address->img[0].ptr = mlx_new_image(address->game->mlx, WIDTH, HEIGHT);
-	address->img[0].img = mlx_get_data_addr(address->img[0].ptr, &address->img[0].bpp, \
-	&address->img[0].size_line, &address->img[0].endian);
+	address->img[0].img = mlx_get_data_addr(address->img[0].ptr, \
+	&address->img[0].bpp, &address->img[0].size_line, &address->img[0].endian);
 	ft_get_data_addr(address);
 	while (i < WIDTH)
 	{

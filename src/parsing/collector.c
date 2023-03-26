@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   collector.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/24 20:30:47 by suhovhan          #+#    #+#             */
+/*   Updated: 2023/02/24 20:35:00 by suhovhan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	texture_collector(t_cub *cub, char **mtx)
@@ -67,27 +79,27 @@ int	struct_collector(t_cub *cub, char **mtx)
 
 int	color_collector(t_elements *elements, char **sp, int flag)
 {
-	int	R;
-	int	G;
-	int	B;
+	int	r;
+	int	g;
+	int	b;
 
-	R = ft_atoi(sp[0]);
-	G = ft_atoi(sp[1]);
-	B = ft_atoi(sp[2]);
-	if (R < 0 || R > 255 || G < 0 || G > 255 || B < 0 || B > 255 || \
+	r = ft_atoi(sp[0]);
+	g = ft_atoi(sp[1]);
+	b = ft_atoi(sp[2]);
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255 || \
 	ft_strlen(sp[0]) > 4 || ft_strlen(sp[1]) > 4 || ft_strlen(sp[2]) > 4)
 		return (-1);
 	if (flag == 0)
 	{
-		elements->C[0] = R;
-		elements->C[1] = G;
-		elements->C[2] = B;
+		elements->_c[0] = r;
+		elements->_c[1] = g;
+		elements->_c[2] = b;
 	}
 	else if (flag == 1)
 	{
-		elements->F[0] = R;
-		elements->F[1] = G;
-		elements->F[2] = B;
+		elements->_f[0] = r;
+		elements->_f[1] = g;
+		elements->_f[2] = b;
 	}
 	return (0);
 }
@@ -104,59 +116,16 @@ int	elements_collector(t_elements *elements, char **texture)
 	{
 		sp = ft_split(texture[i], ' ');
 		if (ft_strcmp(sp[0], "NO") == 0)
-			elements->NO = ft_strdup(sp[1]);
+			elements->_no = ft_strdup(sp[1]);
 		if (ft_strcmp(sp[0], "SO") == 0)
-			elements->SO = ft_strdup(sp[1]);
+			elements->_so = ft_strdup(sp[1]);
 		if (ft_strcmp(sp[0], "WE") == 0)
-			elements->WE = ft_strdup(sp[1]);
+			elements->_we = ft_strdup(sp[1]);
 		if (ft_strcmp(sp[0], "EA") == 0)
-			elements->EA = ft_strdup(sp[1]);
+			elements->_ea = ft_strdup(sp[1]);
 		if (ft_strcmp(sp[0], "F") == 0 || ft_strcmp(sp[0], "C") == 0)
 			ret = color_checker(elements, texture[i]);
 		free_mtx(sp);
 	}
 	return (ret);
-}
-
-void	getter_cub(t_data *data, t_cub cub)
-{
-	int		i;
-	char	**map;
-
-	i = -1;
-	while (cub.map[++i])
-		;
-	map = (char **)malloc(sizeof(char *) * (i + 2));
-	if (!map)
-		return ;
-	i = -1;
-	while (cub.map[++i])
-		map[i] = ft_strdup(cub.map[i]);
-	map[i] = 0;
-	data->map = map;
-}
-
-t_data	data_collector(t_cub cub)
-{
-	t_data	data;
-
-	data.map = NULL;
-	data.x = -1;
-	data.y = -1;
-	getter_cub(&data, cub);
-	return (data);
-	while (data.map[++(data.y)])
-	{
-		data.x = -1;
-		while (data.map[++data.x])
-			if (data.map[data.x][data.y] == 'E' || data.map[data.x][data.y] == 'N' \
-			|| data.map[data.x][data.y] == 'S' || data.map[data.x][data.y] == 'W')
-			{
-				data.pos_x = data.x;
-				data.pos_y = data.y;
-				break ;
-			}
-	}
-	data.x = -1;
-	data.y = -1;
 }

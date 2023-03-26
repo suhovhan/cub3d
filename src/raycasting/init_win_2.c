@@ -1,22 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_win_2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/24 20:49:28 by suhovhan          #+#    #+#             */
+/*   Updated: 2023/02/24 20:50:46 by suhovhan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void    draw_floor_and_celling(t_addres *data, char *dest)
+void	draw_floor_and_celling(t_addres *data, char *dest)
 {
-        int             i;
+	int	i;
 
-        i = -1;
-        while (++i < HEIGHT / 2)
-        {
-                dest = data->img[0].img + (i * data->img[0].size_line + \
-                data->game->index * data->img[0].bpp / 8);
-                *(int *)dest = data->game->c_color;
-        }
-        while (++i < HEIGHT)
-        {
-                dest = data->img[0].img + (i * data->img[0].size_line + \
-                data->game->index * data->img[0].bpp / 8);
-                *(int *)dest = data->game->f_color;
-        }
+	i = -1;
+	while (++i < HEIGHT / 2)
+	{
+			dest = data->img[0].img + (i * data->img[0].size_line + \
+			data->game->index * data->img[0].bpp / 8);
+			*(int *)dest = data->game->c_color;
+	}
+	while (++i < HEIGHT)
+	{
+			dest = data->img[0].img + (i * data->img[0].size_line + \
+			data->game->index * data->img[0].bpp / 8);
+			*(int *)dest = data->game->f_color;
+	}
 }
 
 int	ft_texx(t_addres *address, int n)
@@ -37,8 +49,6 @@ int	ft_texx(t_addres *address, int n)
 		texx = address->img[n].width - texx - 1;
 	if (address->rcasting->side == 1 && address->rcasting->raydiry < 0)
 		texx = address->img[n].width - texx - 1;
-	p_img(*address, n);
-	kill(getpid(), SIGKILL);
 	return (texx);
 }
 
@@ -53,7 +63,6 @@ int	draw_walls(t_addres *address, char *dest, char *dest_2, int texx)
 	n = check_nwse(address);
 	i = address->rcasting->drawstart;
 	texx = (int)ft_texx(address, n);
-	printf("%d\n", texx);
 	step = 1.0 * address->img[n].width / address->rcasting->lineheight;
 	texpos = (address->rcasting->drawstart - HEIGHT / 2 + \
 	address->rcasting->lineheight / 2) * step;
@@ -63,8 +72,8 @@ int	draw_walls(t_addres *address, char *dest, char *dest_2, int texx)
 		texpos += step;
 		dest = address->img[0].img + (i * address->img[0].size_line + \
 		address->game->index * (address->img[0].bpp / 8));
-		dest_2 = address->img[n].img + ((int)texpos * address->img[n].size_line + \
-		texx * (address->img[n].bpp / 8));
+		dest_2 = address->img[n].img + ((int)texpos * \
+		address->img[n].size_line + texx * (address->img[n].bpp / 8));
 		*(int *)dest = *(int *)dest_2;
 		i++;
 	}
@@ -79,8 +88,10 @@ void	norm_init_win_3(t_addres *address)
 	else
 		address->rcasting->perpwalldist = (address->rcasting->sidedisty - \
 		address->rcasting->deltadisty);
-	address->rcasting->lineheight = (int)(HEIGHT / address->rcasting->perpwalldist);
-	address->rcasting->drawstart = -address->rcasting->lineheight / 2 + HEIGHT / 2;
+	address->rcasting->lineheight = (int)(HEIGHT / \
+	address->rcasting->perpwalldist);
+	address->rcasting->drawstart = -address->rcasting->lineheight / \
+	2 + HEIGHT / 2;
 	if (address->rcasting->drawstart < 0)
 		address->rcasting->drawstart = 0;
 	address->rcasting->drawend = address->rcasting->lineheight / 2 + HEIGHT / 2;

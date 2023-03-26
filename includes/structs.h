@@ -1,6 +1,17 @@
-#ifndef STRUCT_H
-# define STRUCT_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/24 19:36:29 by suhovhan          #+#    #+#             */
+/*   Updated: 2023/02/24 19:59:38 by suhovhan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
 # define WIDTH			2040
 # define HEIGHT			1000
@@ -18,23 +29,23 @@
 
 # define BUFFER_SIZE 10
 
-typedef struct	s_cub
+typedef struct s_cub
 {
 	char	**map;
 	char	**texture;
 }				t_cub;
 
-typedef struct	s_elements
+typedef struct s_elements
 {
-	char	*NO;
-	char	*SO;
-	char	*WE;
-	char	*EA;
-	int		F[3];
-	int		C[3];
+	char	*_no;
+	char	*_so;
+	char	*_we;
+	char	*_ea;
+	int		_f[3];
+	int		_c[3];
 }				t_elements;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	int		pos_x;
 	int		pos_y;
@@ -117,4 +128,4 @@ typedef struct s_addres
 	t_cub			cub;
 }				t_addres;
 
-# endif
+#endif

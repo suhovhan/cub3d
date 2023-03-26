@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pars_manager.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/24 20:35:27 by suhovhan          #+#    #+#             */
+/*   Updated: 2023/02/24 20:40:55 by suhovhan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 char	**getmap(char *filename)
@@ -17,9 +29,29 @@ char	**getmap(char *filename)
 	return (map);
 }
 
-char	*read_map(int fd)
+void	norm_read_map(char **full_line, char **line, int *flag)
 {
 	char	*ptr;
+
+	ptr = *full_line;
+	if (find_char(*line) == 0 || *flag > 6)
+	{
+		(*flag)++;
+		if (ft_strcmp(*line, "\n") == 0)
+		{
+			free(*line);
+			*line = ft_strdup("    \n");
+		}
+		if (*full_line == NULL)
+			*full_line = ft_strdup(*line);
+		else
+			*full_line = ft_strjoin(ptr, *line);
+		free(ptr);
+	}
+}
+
+char	*read_map(int fd)
+{
 	char	*line;
 	char	*full_line;
 	int		flag;
@@ -29,21 +61,7 @@ char	*read_map(int fd)
 	line = get_next_line(fd);
 	while (line)
 	{
-		ptr = full_line;
-		if (find_char(line) == 0 || flag > 6)
-		{
-			flag++;
-			if (ft_strcmp(line, "\n") == 0)
-			{
-				free(line);
-				line = ft_strdup("    \n");
-			}
-			if (full_line == NULL)
-				full_line = ft_strdup(line);
-			else
-				full_line = ft_strjoin(ptr, line);
-			free(ptr);
-		}
+		norm_read_map(&full_line, &line, &flag);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -88,19 +106,5 @@ char	*open_tabs(char *str, int count)
 			line[++j] = str[i];
 	}
 	line[++j] = '\0';
-	return (line);
-}
-
-char	*reset_tabs(char *str)
-{
-	char	*line;
-	int		count;
-
-	if (!str)
-		return (NULL);
-	count = tab_count(str);
-	if (count == 0)
-		return (ft_strdup(str));
-	line = open_tabs(str, count);
 	return (line);
 }

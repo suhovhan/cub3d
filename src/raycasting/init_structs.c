@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_structs.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/24 20:49:19 by suhovhan          #+#    #+#             */
+/*   Updated: 2023/02/24 20:49:20 by suhovhan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	init_struct_game(t_addres *address)
@@ -25,6 +37,24 @@ void	init_struct_index(t_addres *address)
 	address->index->index_we = 0;
 	address->index->index_c = 0;
 	address->index->index_f = 0;
+}
+
+void	init_struct_img(t_addres *address)
+{
+	int	i;
+
+	i = -1;
+	address->img = malloc(sizeof(t_img) * 5);
+	while (++i < 5)
+	{
+		address->img[i].ptr = 0;
+		address->img[i].img = 0;
+		address->img[i].bpp = 0;
+		address->img[i].width = 0;
+		address->img[i].height = 0;
+		address->img[i].size_line = 0;
+		address->img[i].endian = 0;
+	}
 }
 
 void	init_struct_raycasting(t_addres *address)
@@ -57,8 +87,8 @@ void	init_struct_raycasting(t_addres *address)
 
 void	init_structs(t_addres *address)
 {
-	address->img = malloc(sizeof(t_img) * 5);
 	init_struct_raycasting(address);
 	init_struct_index(address);
 	init_struct_game(address);
+	init_struct_img(address);
 }

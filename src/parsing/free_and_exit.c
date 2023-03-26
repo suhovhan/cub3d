@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_and_exit.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/24 20:35:15 by suhovhan          #+#    #+#             */
+/*   Updated: 2023/02/24 20:35:23 by suhovhan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	free_mtx(char **mtx)
@@ -8,8 +20,12 @@ void	free_mtx(char **mtx)
 	if (!mtx)
 		return ;
 	while (mtx[++i])
+	{
 		free(mtx[i]);
+		mtx[i] = NULL;
+	}
 	free(mtx);
+	mtx = NULL;
 }
 
 void	free_cub(t_cub cub)
@@ -20,10 +36,14 @@ void	free_cub(t_cub cub)
 
 void	free_elements(t_elements elements)
 {
-	free(elements.NO);
-	free(elements.SO);
-	free(elements.WE);
-	free(elements.EA);
+	free(elements._no);
+	free(elements._so);
+	free(elements._we);
+	free(elements._ea);
+	elements._no = NULL;
+	elements._so = NULL;
+	elements._we = NULL;
+	elements._ea = NULL;
 }
 
 void	free_game(t_game *game)
@@ -34,12 +54,18 @@ void	free_game(t_game *game)
 	free(game->so);
 	free(game->ea);
 	free(game->we);
+	game->mlx = NULL;
+	game->win = NULL;
+	game->no = NULL;
+	game->so = NULL;
+	game->ea = NULL;
+	game->we = NULL;
 }
 
 void	free_all(t_addres *address)
 {
 	int	i;
-	
+
 	i = -1;
 	free_cub(address->cub);
 	free_elements(address->elements);
@@ -54,4 +80,8 @@ void	free_all(t_addres *address)
 	free(address->index);
 	free(address->game);
 	free(address->img);
+	address->rcasting = NULL;
+	address->index = NULL;
+	address->game = NULL;
+	address->img = NULL;
 }

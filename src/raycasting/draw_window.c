@@ -1,26 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_window.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/24 20:49:13 by suhovhan          #+#    #+#             */
+/*   Updated: 2023/02/24 20:49:14 by suhovhan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	create_trgb(int r, int g, int b)
 {
-	int t;
-	
+	int	t;
+
 	t = 0;
 	return (*(int *)(unsigned char [4]){b, g, r, t});
 }
 
 void	initializer(t_addres *address)
 {
-	int	size;
-
-	size = 100;
 	address->game->mlx = mlx_init();
-	address->game->win = mlx_new_window(address->game->mlx, WIDTH, HEIGHT, "IT IS MY CUB3D!");
-	address->game->no = mlx_xpm_file_to_image(address->game->mlx, address->elements.NO, &size, &size);
-	address->game->so = mlx_xpm_file_to_image(address->game->mlx, address->elements.SO, &size, &size);
-	address->game->we = mlx_xpm_file_to_image(address->game->mlx, address->elements.WE, &size, &size);
-	address->game->ea = mlx_xpm_file_to_image(address->game->mlx, address->elements.EA, &size, &size);
-	address->game->f_color = create_trgb(address->elements.F[0], address->elements.F[1], address->elements.F[2]);
-	address->game->c_color = create_trgb(address->elements.C[0], address->elements.C[1], address->elements.C[2]);
+	address->game->win = mlx_new_window(address->game->mlx, WIDTH, \
+	HEIGHT, "IT IS MY CUB3D!");
+	address->game->no = mlx_xpm_file_to_image(address->game->mlx, \
+	address->elements._no, &address->img[1].width, &address->img[1].height);
+	address->game->so = mlx_xpm_file_to_image(address->game->mlx, \
+	address->elements._so, &address->img[2].width, &address->img[2].height);
+	address->game->ea = mlx_xpm_file_to_image(address->game->mlx, \
+	address->elements._ea, &address->img[3].width, &address->img[3].height);
+	address->game->we = mlx_xpm_file_to_image(address->game->mlx, \
+	address->elements._we, &address->img[4].width, &address->img[4].height);
+	address->game->f_color = create_trgb(address->elements._f[0], \
+	address->elements._f[1], address->elements._f[2]);
+	address->game->c_color = create_trgb(address->elements._c[0], \
+	address->elements._c[1], address->elements._c[2]);
 	if (address->game->mlx == NULL || address->game->win == NULL)
 		close_game(address);
 	if (address->game->no == NULL || address->game->so == NULL)
